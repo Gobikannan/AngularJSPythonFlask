@@ -1,0 +1,17 @@
+<div class="ui blue message">Select document based on file</div>
+<div class="ui raised segment">
+	<div class="ui celled list">
+	  <div class="item" ng-repeat=" doc in documents">
+		<div class="right floated content">
+			<div class="ui radio checkbox">
+				<input type="radio" ng-value="doc[1]" ng-model="$parent.seldoc">
+				<label></label>
+			</div>
+		</div>	  	
+		<div class="content">
+			<div class="header">{{$index+1}} - {{doc[1]}}</div>
+		</div>
+	  </div>
+	</div>
+	<button class="ui green button" ng-click="load()">Load Document</button>
+</div>
