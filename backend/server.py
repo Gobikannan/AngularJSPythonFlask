@@ -9,7 +9,9 @@ import Testruns as testruns
 import ExecDetails as execdetails
 import exportToExcelApps as xclapps
 import exportToDocsApps as docxapps
+import exportToXmlApps as xmlapps
 import exportToExcelScenarios as xclscenarios
+import exportToXmlScenarios as xmlscenarios
 import exportToPdfApps as pdfapps
 import exportToPdfScenarios as pdfScenarios
 import exportToDocsScenarios as docxScenarios
@@ -54,6 +56,8 @@ def save_application(id):
         docxapps.save(id, target, freeText, ptasks, appName)
     elif(fileFormat == 'PDF'):
         pdfapps.save(id, target, freeText, ptasks, appName)
+    elif(fileFormat == 'XML'):
+        xmlapps.save(id, target, freeText, ptasks, appName)
 
     return jsonify({ 'result' : 'success' })
 
@@ -89,6 +93,8 @@ def save_scenario_tests(testrunid):
         docxScenarios.save(testrunid, scenarioName, releaseName, tests)
     elif(fileFormat == 'PDF'):
         pdfScenarios.save(testrunid, scenarioName, releaseName, tests)
+    elif(fileFormat == 'XML'):
+        xmlscenarios.save(testrunid, scenarioName, releaseName, tests)
 
     return jsonify({ 'result' : 'success' })
 
