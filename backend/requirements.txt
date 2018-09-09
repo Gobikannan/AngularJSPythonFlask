@@ -1,7 +1,0 @@
-flask
-flask-restful
-sqlalchemy
-CORS
-openpyxl
-docx
-reportlab
