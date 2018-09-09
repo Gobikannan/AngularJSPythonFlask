@@ -1,0 +1,15 @@
+.ui.segment:first-child {
+    margin-top: 1rem;
+}
+
+.bottom-divider {
+    border-bottom: thin solid black;
+}
+
+.ui.blue.table {
+    border: .2em solid #2185d0 !important;
+}
+
+.table-header th{
+    font-size: 16px;
+}

@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Flask, Blueprint, request, jsonify
 
 import database as dba
 import File as files
@@ -16,31 +15,26 @@ import exportToPdfApps as pdfapps
 import exportToPdfScenarios as pdfScenarios
 import exportToDocsScenarios as docxScenarios
 
-app = Flask(__name__)
-CORS(app)
+bp = Blueprint('server', __name__)
 
-@app.teardown_request
+@bp.teardown_request
 def remove_session(ex=None):
     dba.session.close()
 
-@app.route("/")
-def hello():
-    return "<h1>Welcome..</h1>"
-
 # endpoint to show all applications from the file table
-@app.route("/applications", methods=["GET"])
+@bp.route("/applications", methods=["GET"])
 def get_all_applications():
     all_applications = files.get_files()
     return jsonify(all_applications)
 
 # endpoint to show particular application with test cases
-@app.route("/application/<id>", methods=["GET"])
+@bp.route("/application/<id>", methods=["GET"])
 def get_application(id):
     stepsResult = ptasks.get_test_cases(id)
     return jsonify(stepsResult)
 
 # endpoint to save particular application with test cases in the file
-@app.route("/application/<id>", methods=["POST"])
+@bp.route("/application/<id>", methods=["POST"])
 def save_application(id):
     fileFormat = request.json['fileFormat']
     target = request.json['target']
@@ -62,25 +56,25 @@ def save_application(id):
     return jsonify({ 'result' : 'success' })
 
 # endpoint to show all scenarios from the file table
-@app.route("/scenarios", methods=["GET"])
+@bp.route("/scenarios", methods=["GET"])
 def get_all_scenarios():
     all_scenarios = scenario.get_scenarios()
     return jsonify(all_scenarios)
 
 # endpoint to show all releases by scenario id linked to testruns
-@app.route("/releases/<id>", methods=["GET"])
+@bp.route("/releases/<id>", methods=["GET"])
 def get_all_releases(id):
     results = testruns.get_releases(id)
     return jsonify(results)
 
 # endpoint to show all releases by scenario id linked to testruns
-@app.route("/testexecdetails/<testrunid>", methods=["GET"])
+@bp.route("/testexecdetails/<testrunid>", methods=["GET"])
 def get_testexecdetails(testrunid):
     results = execdetails.get_testexecdetails(testrunid)
     return jsonify(results)
 
 # endpoint to save particular testexecdetails in the file
-@app.route("/testexecdetails/<testrunid>", methods=["POST"])
+@bp.route("/testexecdetails/<testrunid>", methods=["POST"])
 def save_scenario_tests(testrunid):
     fileFormat = request.json['fileFormat']
     scenarioName = request.json['scenarioName']
@@ -97,7 +91,3 @@ def save_scenario_tests(testrunid):
         xmlscenarios.save(testrunid, scenarioName, releaseName, tests)
 
     return jsonify({ 'result' : 'success' })
-
-if __name__ == '__main__':
-    app.run(debug=True)
-

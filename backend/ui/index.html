@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" sizes="16x16"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/semantic-ui/dist/semantic.min.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/semantic-ui-icon/icon.min.css"/>
+    <link rel="stylesheet" type="text/css" href="bower_components/semantic-ui-dropdown/dropdown.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="app.css"/>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/semantic-ui/dist/semantic.min.js"></script>
+    <script type="text/javascript" src="bower_components/semantic-ui-dropdown/dropdown.min.js"></script>
+    <script type="text/javascript" src="bower_components/sugarjs/release/sugar.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="js/first.js"></script>
+    <script type="text/javascript" src="js/second.js"></script>
+    <script type="text/javascript" src="js/third.js"></script>
+    <script type="text/javascript" src="js/fourth.js"></script>   
+    <script type="text/javascript" src="js/five.js"></script>
+    <script type="text/javascript" src="js/six.js"></script>
+</head>
+
+<body ng-controller="Controller">
+  <div class="ui inverted menu">
+    <div class="header item">
+      Our Logo
+    </div>
+    <a class="item">
+      About Us
+    </a>
+    <a class="item">
+      Help
+    </a>
+  </div>
+  <div class="ui internally celled grid container">
+    <div class="sixteen wide column">
+      <div class="ui pointing secondary demo menu">
+          <a class="teal item" data-tab="first">Screen One</a>
+          <a class="blue item" data-tab="second">Screen Two</a>
+          <a class="green item" data-tab="third">Screen Three</a>
+          <a class="orange item" data-tab="fourth" ng-click="switch('fourth', true)">Screen Four</a>
+          <a class="active orange item" data-tab="fifth" ng-click="switch('fifth', false)">Screen Five</a>
+          <a class="orange item" data-tab="sixth" ng-click="switch('sixth', false)">Screen Six</a>
+      </div>
+
+      <div class="ui tab segment" data-tab="first">
+        <div ng-show="g.panel == 'first'" ng-include="'js/first.html'" ng-controller="FirstCtrl"></div>                
+      </div>
+      <div class="ui tab segment" data-tab="second">
+        <div ng-show="g.panel == 'second'" ng-include="'js/second.html'" ng-controller="SecondCtrl"></div>
+      </div>
+      <div class="ui tab segment" data-tab="third">
+        <div ng-show="g.panel == 'third'" ng-include="'js/third.html'" ng-controller="ThirdCtrl"></div>
+      </div>
+      <div class="ui tab segment" data-tab="fourth">
+        <div ng-show="g.panel == 'fourth'" ng-include="'js/fourth.html'" ng-controller="FourthCtrl"></div>
+      </div>
+      <div class="ui active tab segment" data-tab="fifth">
+        <div ng-show="g.panel == 'fifth'" ng-include="'js/five.html'"></div>
+      </div>
+      <div class="ui tab segment" data-tab="sixth">
+        <div ng-show="g.panel == 'sixth'" ng-include="'js/six.html'"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

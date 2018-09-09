@@ -1,0 +1,70 @@
+<div ng-controller="FifthCtrl">
+	<div class="ui info message" ng-class="message === '' ? 'hidden' : 'visible'">
+		<i class="close icon" ng-click="message = ''"></i>
+		<div class="header">
+			<p>{{message}}</p>
+		</div>
+	</div>
+	<div class="ui form segment">
+		<div class="ui inline fields">
+			<div class="field">
+				<h4 class="ui header">Select Application</h4>
+				<select ng-init="loadApplicationNames()" name="apps" placeholder="Please choose Application" class="ui selection dropdown application-name-dropdown"
+				    ng-model="selectedAppId">
+					<option ng-repeat="application in applications track by application.id" ng-value="application.id">{{application.name}}</option>
+				</select>
+			</div>
+			<div class="ui field">
+				<button class="ui blue button" ng-click="fetchApplication()">Fetch</button>
+			</div>
+		</div>
+		<div class="ui ignored divider"></div>
+		<div class="ui two fields">
+			<div class="field">
+				<h4 class="ui header">Application Name</h4>
+				<input type="text" placeholder="Application Name" disabled value="{{selectedAppName}}">
+			</div>
+			<div class="field">
+				<h4 class="ui header">Target/Location</h4>
+				<input type="text" placeholder="Target/Location" ng-model="targetLocation">
+			</div>
+		</div>
+		<div class="field">
+				<h4 class="ui header">Pre-Conditions, Environment Details</h4>
+			<textarea placeholder="Pre-Conditions, Environment Details" ng-model="freeText"></textarea>
+		</div>
+		<div>
+			<h4 class="ui header">Test Cases</h4>
+		</div>
+		<table class="ui celled blue table padded">
+			<thead>
+				<tr>
+					<th>Sl #</th>
+					<th class="collapsing">Type</th>
+					<th>Step</th>
+					<th>Result</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="ptask in ptasks">
+					<td>{{$index + 1}}</td>
+					<td class="collapsing"> <i class="large icon" ng-class="getIcon(ptask.Type)"></i> {{ptask.Type}}</td>
+					<td>
+						<span ng-repeat="Step in ptask.Steps">
+							{{Step}},
+						</span>
+					</td>
+					<td>{{ptask.result}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="ui ignored divider"></div>
+		<select name="fileformat" ng-model="fileFormat" placeholder="Please choose File Format" class="ui selection dropdown application-name-dropdown">
+			<option value="XLS">XLS</option>
+			<option value="DOC">DOC</option>
+			<option value="PDF">PDF</option>
+			<option value="XML">XML</option>
+		</select>
+		<button class="ui green button" ng-click="save(selectedAppId)">Save</button>
+	</div>
+</div>
